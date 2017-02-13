@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">listTest</string>
+    <string name="list_with_subjects">List with subjects</string>
+    <string name="enter_code_here">Enter code here</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="adding_new_subject">Adding new subject</string>
+</resources>

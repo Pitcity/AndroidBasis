@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/sbj_inf_logo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/sbj_inf_checked"
+        android:layout_below="@+id/sbj_inf_logo"
+        android:layout_alignLeft="@+id/sbj_inf_logo"
+        android:layout_alignStart="@+id/sbj_inf_logo" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sbj_inf_code"
+        android:layout_alignBaseline="@+id/sbj_inf_checked"
+        android:layout_alignBottom="@+id/sbj_inf_checked"
+        android:layout_toRightOf="@+id/sbj_inf_checked"
+        android:layout_toEndOf="@+id/sbj_inf_checked" />
+
+    <EditText
+        android:text="@string/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sbj_inf_descr"
+        android:padding="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_alignTop="@+id/sbj_inf_logo"
+        android:layout_toRightOf="@+id/sbj_inf_logo"
+        android:layout_toEndOf="@+id/sbj_inf_logo"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:hint="@string/description"/>
+
+
+    <ProgressBar
+        android:id="@+id/counterBp"
+        android:layout_below="@+id/sbj_inf_checked"
+        android:layout_alignLeft="@+id/sbj_inf_checked"
+        android:layout_alignStart="@+id/sbj_inf_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_alignRight="@+id/sbj_inf_code"
+        android:layout_alignEnd="@+id/sbj_inf_code" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resCounter"
+        android:layout_below="@+id/sbj_inf_descr"
+        android:layout_alignLeft="@+id/sbj_inf_descr"
+        android:layout_alignStart="@+id/sbj_inf_descr" />
+
+</RelativeLayout>

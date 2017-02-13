@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/sbj_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/sbj_code"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"/>
+
+    <ImageView
+        android:id="@+id/sbj_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ok_accept_3523"/>
+
+    <TextView
+        android:id="@+id/sbj_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sbj_icon"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/sbj_icon"
+        android:layout_toRightOf="@+id/sbj_icon"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/sbj_descr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/sbj_icon"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:layout_toEndOf="@+id/sbj_code"
+        android:layout_toRightOf="@+id/sbj_code"
+        android:text=""/>
+
+</RelativeLayout>

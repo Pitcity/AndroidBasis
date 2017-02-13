@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">listTest</string>
+    <string name="list_with_subjects">Перелік предметів</string>
+    <string name="enter_code_here">Введіть код</string>
+    <string name="description">Опис</string>
+    <string name="submit">Підтвердити</string>
+    <string name="adding_new_subject">Додавання нового предмету</string>
+</resources>
