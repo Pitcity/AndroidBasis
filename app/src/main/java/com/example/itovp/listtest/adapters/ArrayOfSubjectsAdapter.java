@@ -61,18 +61,18 @@ public class ArrayOfSubjectsAdapter extends RecyclerView.Adapter<ArrayOfSubjects
 					if (v.getId() == R.id.sbj_btn) {
 						mListOfSubjects.remove((int) v.getTag());
 						final View parent = (View) v.getParent().getParent();
-						((View)parent.getParent()).animate().setDuration(DURATION_FOR_ANIMATION).translationY(-parent.getHeight()).start();
+						((View) parent.getParent()).animate().setDuration(DURATION_FOR_ANIMATION).translationY(-parent.getHeight()).start();
 						parent.animate().alpha(0f).setDuration(DURATION_FOR_ANIMATION).withEndAction(new Runnable() {
 							@Override
 							public void run() {
 								openElement = -1;
-								((View)parent.getParent()).animate().setDuration(0).translationY(0).start();
+								((View) parent.getParent()).animate().setDuration(0).translationY(0).start();
 								notifyDataSetChanged();
 							}
 						}).start();
 					} else {
 						if (previousView != null && (int) previousView.getTag() == openElement) {
-							Button button = (Button)(((View)previousView.getParent()).findViewWithTag(openElement)).findViewById(R.id.sbj_btn);
+							Button button = (Button) (((View) previousView.getParent()).findViewWithTag(openElement)).findViewById(R.id.sbj_btn);
 							button.setEnabled(false);
 							ObjectAnimator.ofFloat(previousView.findViewById(R.id.sbj_main_item_view), View.X, 10).setDuration(DURATION_FOR_ANIMATION).start();
 							openElement = -1;
@@ -99,7 +99,7 @@ public class ArrayOfSubjectsAdapter extends RecyclerView.Adapter<ArrayOfSubjects
 								editSbjFragment.setCurrentItem(mListOfSubjects.get(position));
 							}
 						} else {                // move it
-							Button button = (Button)(((View)v.getParent()).findViewWithTag(v.getTag())).findViewById(R.id.sbj_btn);
+							Button button = (Button) (((View) v.getParent()).findViewWithTag(v.getTag())).findViewById(R.id.sbj_btn);
 							button.setEnabled(x - startX > 0);
 							ObjectAnimator.ofFloat(v.findViewById(R.id.sbj_main_item_view), View.X, x - startX > 0 ? WIDTH_FOR_ANIMATION : 10).setDuration(DURATION_FOR_ANIMATION).start();
 							openElement = (Integer) v.getTag();
@@ -163,7 +163,7 @@ public class ArrayOfSubjectsAdapter extends RecyclerView.Adapter<ArrayOfSubjects
 		ObjectAnimator.ofFloat(vh.itemView.findViewById(R.id.sbj_main_item_view), View.ALPHA, 1).setDuration(0).start();
 		ObjectAnimator.ofFloat(vh.itemView.findViewById(R.id.sbj_main_item_view), View.X, position == openElement ? WIDTH_FOR_ANIMATION : 10).setDuration(0).start();
 		vh.itemView.setBackgroundColor(currentPosition == position ? Color.argb(50, 10, 10, 10) : Color.WHITE);
-		vh.btn.setEnabled(position==openElement);
+		vh.btn.setEnabled(position == openElement);
 
 		vh.cb.setChecked(sbj.getSelected());
 		vh.tw.setText(sbj.getCode().toString());
