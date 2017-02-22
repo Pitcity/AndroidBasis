@@ -18,9 +18,6 @@
 
         <service android:name=".services.SubjectsLoads_Service"/>
 
-        <activity android:name=".activities.SubjectInfoActivity">
-            <!--android:configChanges="orientation|screenSize"-->
-        </activity>
     </application>
 
 </manifest>

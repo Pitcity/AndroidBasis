@@ -11,8 +11,10 @@ import android.widget.EditText;
 import com.example.itovp.listtest.R;
 import com.example.itovp.listtest.activities.MainActivity;
 import com.example.itovp.listtest.entities.Subject;
+import com.example.itovp.listtest.views.KindOfView;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 /**
  * Created by itovp on 06.02.2017.
@@ -44,13 +46,18 @@ public class AddNewFragment extends DialogFragment {
 		mV.findViewById(R.id.addNew_submit).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				KindOfView kov = (KindOfView) mV.findViewById(R.id.ownThing);
+				kov.setLineColor(new Random().nextInt());
+				kov.setCircleColor(new Random().nextInt());
+				kov.setLineThickness(KindOfView.Thickness.thin);
+
 				String code = ((EditText) mV.findViewById(R.id.addNew_code)).getText().toString();
 				if (!code.equals("")) {
 					Subject sbj = new Subject(MainActivity.DEFAULT_PICTURE,
 							BigInteger.valueOf(Long.valueOf(code)), false,
 							((EditText) mV.findViewById(R.id.addNew_descr)).getText().toString());
 					mCallBack.onNewCreated(sbj);
-					((DialogFragment) getFragmentManager().findFragmentByTag("addNewDialog")).dismiss();
+					((DialogFragment) getFragmentManager().findFragmentByTag(MainActivity.ADD_NEW_DIALOG)).dismiss();
 				}
 			}
 		});

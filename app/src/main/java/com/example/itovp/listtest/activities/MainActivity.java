@@ -12,7 +12,6 @@ import com.example.itovp.listtest.fragments.EditSbjFragment;
 import com.example.itovp.listtest.fragments.SbjListFragment;
 import com.example.itovp.listtest.services.SubjectsLoads_Service;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -23,8 +22,9 @@ public class MainActivity extends AppCompatActivity implements AddNewFragment.On
 	public final static int DEFAULT_PICTURE = 2130837597;
 	public final static String KEY_LIST_FRAGMENT = "list";
 	public final static String DATA_FROM_SERVICE = "getDataFromService";
-
-	ArrayList<Subject> mListOfSubjects = new ArrayList<>();
+	public final static String ADD_NEW_DIALOG = "addNewDialog";
+	public static final String DEFAULT_COMMENT = "no comments -_-";
+	public static final String LIST_OF_SUBJECTS = "ListOfSubjects";
 
 	SbjListFragment mLf;
 
@@ -33,30 +33,16 @@ public class MainActivity extends AppCompatActivity implements AddNewFragment.On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		startService(new Intent(getBaseContext(), SubjectsLoads_Service.class));
-
 		mLf = (SbjListFragment) getFragmentManager().findFragmentByTag(KEY_LIST_FRAGMENT);
 		if (mLf == null) {
 			mLf = new SbjListFragment();
 			getFragmentManager().beginTransaction().replace(R.id.container_for_list, mLf, KEY_LIST_FRAGMENT).commit();
+			if (mLf.getListLength()==0) {
+				startService(new Intent(getBaseContext(), SubjectsLoads_Service.class));
+			}
 		}
 
-//		Locale locale = new Locale("en");
-//		Locale.setDefault(locale);
-//		Configuration config = getBaseContext().getResources().getConfiguration();
-//		config.locale = locale;
-//		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putSerializable("ListOfSubjects", mListOfSubjects);
+		setLocale("en");
 	}
 
 	@Override
@@ -67,5 +53,13 @@ public class MainActivity extends AppCompatActivity implements AddNewFragment.On
 	@Override
 	public void onDataChanged(Subject sbj) {
 		mLf.editSbj(sbj);
+	}
+
+	private void setLocale(String countryLoc) {
+		Locale locale = new Locale(countryLoc);
+		Locale.setDefault(locale);
+		Configuration config = getBaseContext().getResources().getConfiguration();
+		config.locale = locale;
+		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 	}
 }

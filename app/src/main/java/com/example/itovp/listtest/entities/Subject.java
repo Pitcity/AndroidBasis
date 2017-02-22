@@ -3,6 +3,8 @@ package com.example.itovp.listtest.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.itovp.listtest.activities.MainActivity;
+
 import java.math.BigInteger;
 
 /**
@@ -20,7 +22,7 @@ public class Subject implements Parcelable {
 		this.mIconRes = mIconRes;
 		this.mCode = mCode;
 		this.mSelected = mSelected;
-		this.mDescription = "no comments -_-";
+		this.mDescription = MainActivity.DEFAULT_COMMENT;
 	}
 
 	public Subject(int mIconRes, BigInteger mCode, Boolean mSelected, String descr) {
@@ -28,38 +30,15 @@ public class Subject implements Parcelable {
 		this.mDescription = descr;
 	}
 
-	public int getmIconRes() {
-		return mIconRes;
-	}
-
-	public BigInteger getCode() {
-		return mCode;
-	}
-
-	public Boolean getmSelected() {
-		return mSelected;
-	}
-
-	public void setmSelected(Boolean mSelected) {
-		this.mSelected = mSelected;
-	}
-
-	public String getmDescription() {
-		return mDescription;
-	}
-
-	public void setmDescription(String mDescription) {
-		this.mDescription = mDescription;
-	}
-
-	public boolean update(Subject updatedSbj) {
-		if (getCode().equals(updatedSbj.getCode())) {
-			setmDescription(updatedSbj.getmDescription());
-			setmSelected(updatedSbj.getmSelected());
-			return true;
-		} else {
-			return false;
-		}
+	private Subject(Parcel in) {
+		String[] strArr = new String[2];
+		int[] intArr = new int[2];
+		in.readIntArray(intArr);
+		in.readStringArray(strArr);
+		mDescription = strArr[0];
+		mCode = BigInteger.valueOf(Long.parseLong(strArr[1]));
+		mIconRes = intArr[0];
+		mSelected = intArr[1] == 1;
 	}
 
 	@Override
@@ -71,17 +50,6 @@ public class Subject implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeIntArray(new int[]{mIconRes, mSelected ? 1 : 0});
 		dest.writeStringArray(new String[]{mDescription, mCode.toString()});
-	}
-
-	protected Subject(Parcel in) {
-		String[] strArr = new String[2];
-		int[] intArr = new int[2];
-		in.readIntArray(intArr);
-		in.readStringArray(strArr);
-		mDescription = strArr[0];
-		mCode = BigInteger.valueOf(Long.parseLong(strArr[1]));
-		mIconRes = intArr[0];
-		mSelected = intArr[1] == 1;
 	}
 
 	public static final Parcelable.Creator<Subject> CREATOR = new Parcelable.Creator<Subject>() {
@@ -98,6 +66,40 @@ public class Subject implements Parcelable {
 
 	@Override
 	public boolean equals(Object o) {
-		return this.mCode.equals(((Subject) o).getCode());
+		return ((o instanceof Subject) && mCode.equals(((Subject) o).getCode()));
+	}
+
+	public int getIconRes() {
+		return mIconRes;
+	}
+
+	public BigInteger getCode() {
+		return mCode;
+	}
+
+	public Boolean getSelected() {
+		return mSelected;
+	}
+
+	public void setSelected(Boolean mSelected) {
+		this.mSelected = mSelected;
+	}
+
+	public String getDescription() {
+		return mDescription;
+	}
+
+	public void setDescription(String mDescription) {
+		this.mDescription = mDescription;
+	}
+
+	public boolean update(Subject updatedSbj) {
+		if (getCode().equals(updatedSbj.getCode())) {
+			setDescription(updatedSbj.getDescription());
+			setSelected(updatedSbj.getSelected());
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

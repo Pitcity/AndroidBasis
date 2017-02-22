@@ -61,7 +61,7 @@ public class EditSbjFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater lf, ViewGroup vg, Bundle bundle) {
-		View v = lf.inflate(R.layout.subject_info_activity, vg, false);
+		View v = lf.inflate(R.layout.frg_subject_info, vg, false);
 		cb = (CheckBox) v.findViewById(R.id.sbj_inf_checked);
 		descr = (EditText) v.findViewById(R.id.sbj_inf_descr);
 		iv = (ImageView) v.findViewById(R.id.sbj_inf_logo);
@@ -83,8 +83,8 @@ public class EditSbjFragment extends Fragment {
 	}
 
 	public void setCurrentItem(Subject sbj) {
-		this.sbj.setmSelected(cb.isChecked());
-		this.sbj.setmDescription(descr.getText().toString());
+		this.sbj.setSelected(cb.isChecked());
+		this.sbj.setDescription(descr.getText().toString());
 		mNotifier.onDataChanged(this.sbj);
 
 		this.sbj = sbj;
@@ -94,16 +94,16 @@ public class EditSbjFragment extends Fragment {
 	}
 
 	private void updateView() {
-		cb.setChecked(sbj.getmSelected());
-		iv.setImageResource(sbj.getmIconRes());
+		cb.setChecked(sbj.getSelected());
+		iv.setImageResource(sbj.getIconRes());
 		tv.setText(sbj.getCode().toString());
-		descr.setText(sbj.getmDescription());
+		descr.setText(sbj.getDescription());
 	}
 
 	@Override
 	public void onDestroy() {
-		this.sbj.setmSelected(cb.isChecked());
-		this.sbj.setmDescription(descr.getText().toString());
+		this.sbj.setSelected(cb.isChecked());
+		this.sbj.setDescription(descr.getText().toString());
 		mNotifier.onDataChanged(this.sbj);
 		super.onDestroy();
 	}

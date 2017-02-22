@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KindOfView">
+        <attr name="circleColor" format="color"/>
+        <attr name="lineColor" format="color"/>
+
+
+        <attr name="lineWidth" format="enum">
+            <enum name="thin" value="1"/>
+            <enum name="middle" value="5"/>
+            <enum name="thick" value="10"/>
+        </attr>
+    </declare-styleable>
+</resources>

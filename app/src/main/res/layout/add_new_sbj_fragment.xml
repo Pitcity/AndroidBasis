@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:padding="10dp">
 
@@ -35,5 +36,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/submit"/>
+
+    <com.example.itovp.listtest.views.KindOfView
+        android:id="@+id/ownThing"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:lineColor="@color/colorPrimary"
+        app:circleColor="@color/error_color"
+        app:lineWidth="thick"/>
 
 </LinearLayout>

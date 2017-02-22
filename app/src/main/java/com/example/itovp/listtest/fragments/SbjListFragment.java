@@ -22,7 +22,6 @@ import com.example.itovp.listtest.adapters.ArrayOfSubjectsAdapter;
 import com.example.itovp.listtest.entities.Subject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by itovp on 07.02.2017.
@@ -35,14 +34,27 @@ public class SbjListFragment extends Fragment {
 	FloatingActionButton mFab;
 	ProgressBar mProgressBar;
 
+	ResponceReceiver mRespReceiver = new ResponceReceiver();
+
+	public int getListLength() {
+		return mListOfSubjects.size();
+	}
+
 	private class ResponceReceiver extends BroadcastReceiver {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			mListOfSubjects.addAll((Collection<? extends Subject>) intent.getSerializableExtra(MainActivity.KEY_LIST_FRAGMENT));
+			mListOfSubjects.addAll(intent.<Subject>getParcelableArrayListExtra(MainActivity.KEY_LIST_FRAGMENT));
 			mRecyclerView.getAdapter().notifyDataSetChanged();
 			mProgressBar.setVisibility(View.GONE);
+			LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).unregisterReceiver(mRespReceiver);
 		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
 	}
 
 	@Override
@@ -58,14 +70,14 @@ public class SbjListFragment extends Fragment {
 		LinearLayoutManager mLayoutManager = new LinearLayoutManager(mV.getContext());
 
 		mRecyclerView.setLayoutManager(mLayoutManager);
-		LocalBroadcastManager.getInstance(mV.getContext()).registerReceiver(new ResponceReceiver(), new IntentFilter(MainActivity.DATA_FROM_SERVICE));
+		LocalBroadcastManager.getInstance(mV.getContext()).registerReceiver(mRespReceiver, new IntentFilter(MainActivity.DATA_FROM_SERVICE));
 
 		if (bundle == null) {
 			if (mListOfSubjects.size() == 0) {
 				mProgressBar.setVisibility(View.VISIBLE);
 			}
 		} else {
-			mListOfSubjects = (ArrayList<Subject>) bundle.getSerializable("ListOfSubjects");
+			mListOfSubjects = (ArrayList<Subject>) bundle.getSerializable(MainActivity.LIST_OF_SUBJECTS);
 		}
 
 		mRecyclerView.setAdapter(new ArrayOfSubjectsAdapter(mListOfSubjects, mV.getContext()));
@@ -73,16 +85,17 @@ public class SbjListFragment extends Fragment {
 		mFab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mDf.show(getFragmentManager(), "addNewDialog");
+				mDf.show(getFragmentManager(), MainActivity.ADD_NEW_DIALOG);
 			}
 		});
+
 		return mV;
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putSerializable("ListOfSubjects", mListOfSubjects);
+		outState.putSerializable(MainActivity.LIST_OF_SUBJECTS, mListOfSubjects);
 	}
 
 	public void addSbj(Subject sbj) {
@@ -95,7 +108,7 @@ public class SbjListFragment extends Fragment {
 			if (subject.equals(sbj)) {
 				subject = sbj;
 			}
-			mRecyclerView.getAdapter().notifyDataSetChanged();
+			mRecyclerView.getAdapter().notifyItemChanged(mListOfSubjects.indexOf(sbj));
 		}
 	}
 }

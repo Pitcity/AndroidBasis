@@ -2,6 +2,7 @@ package com.example.itovp.listtest.services;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.example.itovp.listtest.activities.MainActivity;
@@ -23,15 +24,9 @@ public class SubjectsLoads_Service extends IntentService {
 
 	/**
 	 * Creates an IntentService.  Invoked by your subclass's constructor.
-	 *
-	 * @param name Used to name the worker thread, important only for debugging.
 	 */
-	public SubjectsLoads_Service(String name) {
-		super(name);
-	}
-
 	public SubjectsLoads_Service() {
-		super("");
+		super(SubjectsLoads_Service.class.getName());
 	}
 
 	@Override
@@ -40,15 +35,14 @@ public class SubjectsLoads_Service extends IntentService {
 		for (int i = 0; i < MainActivity.AMOUNT_OF_SUBJECTS; i++) {
 			System.out.println("\n service = " + i);
 			try {
-				TimeUnit.MILLISECONDS.sleep(100);
+				TimeUnit.MILLISECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			list.add(new Subject(DEFAULT_PICTURE, BigInteger.valueOf((long) i), false));
 		}
 		Intent outputIntent = new Intent(MainActivity.DATA_FROM_SERVICE);
-		outputIntent.putExtra(MainActivity.KEY_LIST_FRAGMENT, (Serializable) list);
+		outputIntent.putParcelableArrayListExtra(MainActivity.KEY_LIST_FRAGMENT, (ArrayList<Subject>) list);
 		LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(outputIntent);
-		stopSelf();
 	}
 }
