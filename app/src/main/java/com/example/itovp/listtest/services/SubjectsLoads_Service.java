@@ -2,6 +2,7 @@ package com.example.itovp.listtest.services;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 

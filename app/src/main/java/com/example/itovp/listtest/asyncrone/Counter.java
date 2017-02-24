@@ -12,61 +12,35 @@ import android.widget.TextView;
 
 public class Counter extends AsyncTask<Integer, Integer, Long> implements Parcelable {
 
+	private long mMiliseconds = 0;
 	private transient ProgressBar mPb;
 	private transient TextView mTv;
 
-	private final static int MAX_FOR_COUNTER = 100;
-	private final static int DELIMITER_FOR_COUNTER = 10;
-	private final static long DELAY_FOR_EACH_INCREMENT = 100L;
+	private transient Timer mTimer;
 
 	public Counter(ProgressBar progressBar, TextView textView) {
 		super();
-		mPb = progressBar;
-		mTv = textView;
 	}
 
-	public void reLink(ProgressBar progressBar, TextView textView) {
-		textView.setText(mTv.getText());
-		progressBar.setProgress(mPb.getProgress());
-		mPb = progressBar;
-		mTv = textView;
-		onPreExecute();
+	public Counter(Timer t, long miliseconds) {
+		super();
+		mTimer = t;
+		mMiliseconds = miliseconds;
 	}
 
 	@Override
 	protected Long doInBackground(Integer... params) {
-		long counter = 0;
-		for (int i = 0; i < MAX_FOR_COUNTER; i++) {
-			counter++;
-			try {
-				Thread.sleep(DELAY_FOR_EACH_INCREMENT);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (i % DELIMITER_FOR_COUNTER == 0) {
-				publishProgress((i * DELIMITER_FOR_COUNTER / MAX_FOR_COUNTER));
-			}
+		try {
+			Thread.sleep(mMiliseconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		return counter;
-	}
-
-	@Override
-	protected void onProgressUpdate(Integer... values) {
-		super.onProgressUpdate(values);
-		mPb.setProgress(values[0]);
-		mTv.setText("Progress is = " + values[0] + "; on prBar is " + mPb.getProgress());
-	}
-
-	@Override
-	protected void onPreExecute() {
-		mPb.setMax(MAX_FOR_COUNTER / DELIMITER_FOR_COUNTER);
-		mPb.setVisibility(ProgressBar.VISIBLE);
+		return 1l;
 	}
 
 	@Override
 	protected void onPostExecute(Long l) {
-		mPb.setVisibility(ProgressBar.GONE);
-		mTv.setText("Counter finished counting with " + l + " numbers");
+		mTimer.onFinishCounting();
 	}
 
 	@Override
@@ -97,4 +71,10 @@ public class Counter extends AsyncTask<Integer, Integer, Long> implements Parcel
 			return new Counter[size];
 		}
 	};
+
+	public interface Timer {
+		void onFinishCounting();
+
+		void startCounting(long miliseconds);
+	}
 }

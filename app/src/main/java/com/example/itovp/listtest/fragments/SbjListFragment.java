@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by itovp on 07.02.2017.
  */
 
-public class SbjListFragment extends Fragment {
+public class SbjListFragment extends Fragment implements ListFragment {
 
 	ArrayList<Subject> mListOfSubjects = new ArrayList<>();
 	RecyclerView mRecyclerView;
@@ -70,18 +70,17 @@ public class SbjListFragment extends Fragment {
 		LinearLayoutManager mLayoutManager = new LinearLayoutManager(mV.getContext());
 
 		mRecyclerView.setLayoutManager(mLayoutManager);
-		LocalBroadcastManager.getInstance(mV.getContext()).registerReceiver(mRespReceiver, new IntentFilter(MainActivity.DATA_FROM_SERVICE));
 
 		if (bundle == null) {
 			if (mListOfSubjects.size() == 0) {
 				mProgressBar.setVisibility(View.VISIBLE);
+				LocalBroadcastManager.getInstance(mV.getContext()).registerReceiver(mRespReceiver, new IntentFilter(MainActivity.DATA_FROM_SERVICE));
 			}
 		} else {
 			mListOfSubjects = (ArrayList<Subject>) bundle.getSerializable(MainActivity.LIST_OF_SUBJECTS);
 		}
 
 		mRecyclerView.setAdapter(new ArrayOfSubjectsAdapter(mListOfSubjects, mV.getContext()));
-
 		mFab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -100,7 +99,8 @@ public class SbjListFragment extends Fragment {
 
 	public void addSbj(Subject sbj) {
 		mListOfSubjects.add(sbj);
-		mRecyclerView.getAdapter().notifyDataSetChanged();
+		ArrayOfSubjectsAdapter adapter = (ArrayOfSubjectsAdapter)mRecyclerView.getAdapter();
+		adapter.notifyDataSetChanged();
 	}
 
 	public void editSbj(Subject sbj) {
@@ -108,7 +108,8 @@ public class SbjListFragment extends Fragment {
 			if (subject.equals(sbj)) {
 				subject = sbj;
 			}
-			mRecyclerView.getAdapter().notifyItemChanged(mListOfSubjects.indexOf(sbj));
+			ArrayOfSubjectsAdapter adapter = (ArrayOfSubjectsAdapter)mRecyclerView.getAdapter();
+			adapter.notifyItemChanged(mListOfSubjects.indexOf(sbj));
 		}
 	}
 }

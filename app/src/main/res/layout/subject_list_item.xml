@@ -9,9 +9,9 @@
 
         <Button
             android:id="@+id/sbj_btn"
-            android:layout_margin="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/delete"/>
     </RelativeLayout>
 
@@ -19,8 +19,9 @@
         android:id="@+id/sbj_main_item_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="15dp">
+        android:layout_margin="-10dp"
+        android:padding="10dp"
+        android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/sbj_icon"
@@ -39,8 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/sbj_icon"
-            android:layout_marginLeft="17dp"
-            android:layout_marginStart="17dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/sbj_icon"
             android:layout_toRightOf="@+id/sbj_icon"
             android:text=""/>
@@ -50,8 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/sbj_icon"
-            android:layout_marginLeft="39dp"
-            android:layout_marginStart="39dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/sbj_code"
             android:layout_toRightOf="@+id/sbj_code"
             android:text=""/>
@@ -62,7 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/sbj_code"/>
+            android:layout_alignTop="@+id/sbj_code"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
 </FrameLayout>
